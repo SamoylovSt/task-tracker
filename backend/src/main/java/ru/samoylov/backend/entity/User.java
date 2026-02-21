@@ -16,13 +16,13 @@ import java.util.UUID;
 @AllArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "user_id")
-    private UUID userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
     @Column(name = "email", nullable = false, length = 30, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false, length = 100, unique = true)
+    @Column(name = "password", nullable = false, length = 100)
     private String password;
 
 }
