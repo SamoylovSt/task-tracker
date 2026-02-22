@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import ru.samoylov.backend.exception.JwtAuthenticationException;
 import ru.samoylov.backend.security.CustomUserDetailsService;
 
 import java.io.IOException;
@@ -33,9 +35,14 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-
+//        if (!jwtService.validateToken(token)) {
+//            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+//            response.setContentType("application/json");
+//            response.getWriter().write("{\"message\": \"Невалидный или просроченный токен\"}");
+//            return; // ← ВАЖНО! Прерываем выполнение
+//        }
         if (jwtService.validateToken(token)) {
-            String email = jwtService.generateToken(token);
+            String email = jwtService.getEmailFromToken(token);
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
             UsernamePasswordAuthenticationToken authentication =
@@ -50,6 +57,8 @@ public class JwtFilter extends OncePerRequestFilter {
             );
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
+        }else {
+            throw  new JwtAuthenticationException(HttpStatus.UNAUTHORIZED,"Невалидный или просроченный токен");
         }
         filterChain.doFilter(request, response);
     }

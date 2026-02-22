@@ -18,5 +18,8 @@ public class BaseException extends RuntimeException {
         this.userMessage = userMessage;
     }
 
+    public HttpStatus getStatus() {
+        return status;
+    }
 
 }

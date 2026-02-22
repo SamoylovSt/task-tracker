@@ -2,12 +2,14 @@ package ru.samoylov.backend.security.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
 
+@Slf4j
 @Service
 public class JwtService {
     @Value("${jwt.secret}")
@@ -48,7 +50,11 @@ public class JwtService {
                     .build()
                     .parseClaimsJws(token);
             return true;
-        }catch (JwtException | IllegalArgumentException e) {
+        } catch (ExpiredJwtException e) {
+            log.error("Токен истек: {}", e.getMessage());
+            return false;
+        } catch (JwtException | IllegalArgumentException e) {
+            log.error("Невалидный токен: {}", e.getMessage());
             return false;
         }
     }

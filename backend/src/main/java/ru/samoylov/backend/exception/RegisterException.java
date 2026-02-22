@@ -17,4 +17,8 @@ public class RegisterException extends BaseException{
       this.status=status;
       this.userMessage=userMessage;
    }
+
+   public HttpStatus getStatus() {
+      return status;
+   }
 }
