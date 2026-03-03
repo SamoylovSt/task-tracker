@@ -1,5 +1,6 @@
 package ru.samoylov.backend.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import ru.samoylov.backend.dto.TaskResponse;
 import ru.samoylov.backend.entity.Task;
 import ru.samoylov.backend.entity.User;
 import ru.samoylov.backend.exception.BaseException;
+import ru.samoylov.backend.exception.UserNotFoundException;
 import ru.samoylov.backend.repository.TaskRepository;
 
 import java.util.Date;
@@ -41,17 +43,27 @@ public class TaskService {
 
     public TaskResponse edit(TaskResponse taskResponse) {
         Task task = taskRepository.findById(taskResponse.getId()).orElseThrow(
-                () -> new BaseException(HttpStatus.NOT_FOUND, "задача не найдена")) ;
+                () -> new BaseException(HttpStatus.NOT_FOUND, "задача не найдена"));
 
         task.setDescription(taskResponse.getDescription());
         task.setTitle(taskResponse.getTitle());
-        if(taskResponse.getStatus().equals("DONE")){
+        if (taskResponse.getStatus().equals("DONE")) {
             task.setStatus(taskResponse.getStatus());
-            Date completedTaskTime= new Date();
+            Date completedTaskTime = new Date();
             task.setCompletedTaskTime(completedTaskTime);
         }
         taskRepository.save(task);
-        return modelMapper.map(task,TaskResponse.class);
+        return modelMapper.map(task, TaskResponse.class);
+
+    }
+
+    @Transactional
+    public void deleteTaskById(Long id) {
+        if (taskRepository.existsTaskById(id)) {
+            taskRepository.removeTaskById(id);
+        }else {
+            throw new UserNotFoundException(HttpStatus.NOT_FOUND,"задача не существует");
+        }
 
     }
 }

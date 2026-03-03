@@ -1,8 +1,8 @@
-package ru.samoylov.backend.repository;
+package ru.samoylov.scheduler.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.samoylov.backend.entity.Task;
-import ru.samoylov.backend.entity.User;
+import ru.samoylov.scheduler.entity.Task;
+import ru.samoylov.scheduler.entity.User;
 
 import java.util.List;
 
