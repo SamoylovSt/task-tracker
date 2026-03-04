@@ -22,6 +22,6 @@ public class KafkaConsumer {
     public void listen(EmailTask emailTask) {
 
         senderService.sendEmail(emailTask);
-        log.info("сообщение отправлено");
+
     }
 }

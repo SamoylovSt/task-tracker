@@ -15,7 +15,7 @@ import ru.samoylov.backend.service.UserService;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/tasks")
 @RequiredArgsConstructor
 public class TaskController {

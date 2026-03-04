@@ -61,13 +61,11 @@ public class UserService {
                   .orElseThrow(() -> new UserNotFoundException(HttpStatus.NOT_FOUND, "Пользователь не найден"));
 
           String token = jwtService.generateToken(user.getEmail());
-          System.out.println("авторизация успешна");
+          log.info("успешная авторизация");
           return new JwtResponse(token);
       }catch (BadCredentialsException e){
           throw  new RegisterException(HttpStatus.FORBIDDEN,"не верный логин или пароль");
       }
-
-
     }
 
     public User getCurrentUserByEmail(UserDetails userDetails) {
@@ -77,8 +75,6 @@ public class UserService {
         String email = userDetails.getUsername();
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException(HttpStatus.NOT_FOUND, "Пользователь не найден"));
-        System.out.println("user id"+ user.getId());
-       // return mapper.map(user, UserResponse.class);
         return user;
     }
 }
