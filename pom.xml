@@ -21,8 +21,9 @@
     <description>task-tracker</description>
 
     <modules>
-        <module>backend</module>
-        <module>email-sender</module>
+        <module>task-tracker-backend</module>
+        <module>task-tracker-email-sender</module>
+        <module>task-tracker-scheduler</module>
         <module>common-dto</module>
     </modules>
 
