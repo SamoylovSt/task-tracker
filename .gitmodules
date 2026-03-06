@@ -1,0 +1,3 @@
+[submodule "task-tracker-scheduler"]
+	path = task-tracker-scheduler
+	url = https://github.com/SamoylovSt/task-tracker-scheduler
