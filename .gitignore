@@ -34,8 +34,7 @@ build/
 .idea
 .env
 *.env
-**/application.properties
-**/application-*.properties
+
 
 ### Logs ###
 logs/
@@ -61,3 +60,6 @@ data/
 *.jar
 *.war
 *.ear
+application.properties
+**/application.properties
+**/application-*.properties
