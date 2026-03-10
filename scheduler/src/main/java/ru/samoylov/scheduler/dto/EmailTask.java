@@ -1,4 +1,4 @@
-package ru.samoylov.backend.dto;
+package ru.samoylov.scheduler.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

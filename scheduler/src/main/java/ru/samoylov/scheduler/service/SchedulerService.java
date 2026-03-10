@@ -3,7 +3,7 @@ package ru.samoylov.scheduler.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import ru.samoylov.commondto.EmailTask;
+import ru.samoylov.scheduler.dto.EmailTask ;
 import ru.samoylov.scheduler.entity.Task;
 import ru.samoylov.scheduler.entity.User;
 import ru.samoylov.scheduler.repository.TaskRepository;

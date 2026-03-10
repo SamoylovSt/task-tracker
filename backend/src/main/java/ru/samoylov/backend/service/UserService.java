@@ -2,7 +2,6 @@ package ru.samoylov.backend.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.samoylov.backend.dto.EmailTask;
 import ru.samoylov.backend.dto.JwtResponse;
 import ru.samoylov.backend.dto.RegistrationRequest;
 import ru.samoylov.backend.entity.User;
@@ -20,7 +20,6 @@ import ru.samoylov.backend.exception.RegisterException;
 import ru.samoylov.backend.exception.UserNotFoundException;
 import ru.samoylov.backend.repository.UserRepository;
 import ru.samoylov.backend.security.jwt.JwtService;
-import ru.samoylov.commondto.EmailTask;
 
 @Slf4j
 @Service
