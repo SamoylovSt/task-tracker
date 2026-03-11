@@ -22,7 +22,7 @@ services:
       KAFKA_NODE_ID: 1
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
 
@@ -60,32 +60,32 @@ services:
     restart: unless-stopped
 
   scheduler:
-      build: ./scheduler
-      container_name: scheduler
-      depends_on:
-        - postgres
-        - kafka
-      environment:
-        SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
-        SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
-        SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
-        SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      restart: unless-stopped
+    build: ./scheduler
+    container_name: scheduler
+    depends_on:
+      - postgres
+      - kafka
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    restart: unless-stopped
 
   email-sender:
-      build: ./email-sender
-      container_name: email-sender
-      depends_on:
-        - kafka
-      environment:
-        SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-        SPRING_MAIL_HOST: smtp.gmail.com
-        SPRING_MAIL_PORT: 587
-        SPRING_MAIL_USERNAME: ${GMAIL_USERNAME}
-        SPRING_MAIL_PASSWORD: ${GMAIL_APP_PASSWORD}
-        SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: true
-        SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: true
-      restart: unless-stopped
+    build: ./email-sender
+    container_name: email-sender
+    depends_on:
+      - kafka
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      SPRING_MAIL_USERNAME: ${GMAIL_USERNAME}
+      SPRING_MAIL_PASSWORD: ${GMAIL_APP_PASSWORD}
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: true
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: true
+    restart: unless-stopped
 
 
 volumes:

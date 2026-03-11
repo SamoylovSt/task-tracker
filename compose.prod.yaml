@@ -44,7 +44,7 @@ services:
 
 
   backend:
-    build: ./backend
+    image: ${DOCKER_USERNAME}/backend:latest
     container_name: backend
     ports:
       - "8080:8080"
@@ -60,7 +60,7 @@ services:
     restart: unless-stopped
 
   scheduler:
-      build: ./scheduler
+      image: ${DOCKER_USERNAME}/scheduler:latest
       container_name: scheduler
       depends_on:
         - postgres
@@ -73,7 +73,7 @@ services:
       restart: unless-stopped
 
   email-sender:
-      build: ./email-sender
+      image: ${DOCKER_USERNAME}/email-sender:latest
       container_name: email-sender
       depends_on:
         - kafka
