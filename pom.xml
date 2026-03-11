@@ -23,6 +23,7 @@
     <modules>
         <module>backend</module>
         <module>email-sender</module>
+        <module>common-dto</module>
         <module>scheduler</module>
     </modules>
 
