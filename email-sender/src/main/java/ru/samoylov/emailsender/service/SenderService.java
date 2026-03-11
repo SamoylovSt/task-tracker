@@ -7,7 +7,7 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import ru.samoylov.commondto.EmailTask;
+import ru.samoylov.emailsender.dto.EmailTask ;
 
 @Slf4j
 @Service

@@ -1,4 +1,4 @@
-package ru.samoylov.commondto;
+package ru.samoylov.backend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmailTask {
-
     private String email;
     private String title;
     private String description;
-
 }

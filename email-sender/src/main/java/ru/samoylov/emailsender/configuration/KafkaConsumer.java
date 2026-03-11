@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-import ru.samoylov.commondto.EmailTask;
+import ru.samoylov.emailsender.dto.EmailTask ;
 import ru.samoylov.emailsender.service.SenderService;
 
 @Slf4j
