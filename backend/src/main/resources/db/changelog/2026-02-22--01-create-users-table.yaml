@@ -1,0 +1,27 @@
+table: tasks
+columns:
+  - name: id
+    type: BIGINT
+    attributes:
+      - AUTO_INCREMENT
+      - PRIMARY KEY
+  - name: user_id
+    type: BIGINT
+    constraints:
+      - NOT NULL
+  - name: title
+    type: VARCHAR(255)
+    constraints:
+      - NOT NULL
+  - name: description
+    type: VARCHAR(1000)
+  - name: status
+    type: VARCHAR(50)
+    default: 'NEW'
+  - name: completed_task_time
+    type: TIMESTAMP
+foreign_keys:
+  - column: user_id
+    references:
+      table: users
+      column: idP
