@@ -35,6 +35,10 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        if(request.getRequestURI().startsWith("/auth/login")){
+            filterChain.doFilter(request,response);
+            return;
+        }
 //        if (!jwtService.validateToken(token)) {
 //            response.setStatus(HttpStatus.UNAUTHORIZED.value());
 //            response.setContentType("application/json");
