@@ -34,8 +34,7 @@ build/
 .idea
 .env
 *.env
-**/application.properties
-**/application-*.properties
+
 
 ### Logs ###
 logs/
