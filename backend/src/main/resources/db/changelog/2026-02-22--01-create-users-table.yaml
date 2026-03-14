@@ -1,27 +1,42 @@
-table: tasks
-columns:
-  - name: id
-    type: BIGINT
-    attributes:
-      - AUTO_INCREMENT
-      - PRIMARY KEY
-  - name: user_id
-    type: BIGINT
-    constraints:
-      - NOT NULL
-  - name: title
-    type: VARCHAR(255)
-    constraints:
-      - NOT NULL
-  - name: description
-    type: VARCHAR(1000)
-  - name: status
-    type: VARCHAR(50)
-    default: 'NEW'
-  - name: completed_task_time
-    type: TIMESTAMP
-foreign_keys:
-  - column: user_id
-    references:
-      table: users
-      column: idP
+databaseChangeLog:
+  - changeSet:
+      id: create-tasks-table
+      author: your_name
+      changes:
+        - createTable:
+            tableName: tasks
+            tableExists: fail
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: VARCHAR(1000)
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  defaultValue: 'NEW'
+              - column:
+                  name: completed_task_time
+                  type: TIMESTAMP
+        - addForeignKeyConstraint:
+            constraintName: fk_tasks_users
+            baseTableName: tasks
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
