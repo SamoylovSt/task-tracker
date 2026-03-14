@@ -1,27 +1,25 @@
 databaseChangeLog:
   - changeSet:
       id: create-users-table
-      author: your_name
+      author: stas
       changes:
-        - createTable:
-            tableName: users
-            tableExists: fail
-            columns:
-              - column:
-                  name: id
-                  type: BIGINT
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: email
-                  type: VARCHAR(30)
-                  constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: password
-                  type: VARCHAR(100)
-                  constraints:
-                    nullable: false
+        - sql:
+            sql: CREATE TABLE IF NOT EXISTS users
+              (
+              id
+              bigint
+              GENERATED
+              ALWAYS AS
+              IDENTITY
+              PRIMARY
+              KEY,
+              email
+              VARCHAR
+              (
+              30
+              ) NOT NULL UNIQUE,
+              password VARCHAR
+              (
+              100
+              ) NOT NULL
+              );

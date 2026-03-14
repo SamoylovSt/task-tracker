@@ -1,42 +1,14 @@
 databaseChangeLog:
   - changeSet:
       id: create-tasks-table
-      author: your_name
+      author: stas
       changes:
-        - createTable:
-            tableName: tasks
-            tableExists: fail
-            columns:
-              - column:
-                  name: id
-                  type: BIGINT
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: user_id
-                  type: BIGINT
-                  constraints:
-                    nullable: false
-              - column:
-                  name: title
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: description
-                  type: VARCHAR(1000)
-              - column:
-                  name: status
-                  type: VARCHAR(50)
-                  defaultValue: 'NEW'
-              - column:
-                  name: completed_task_time
-                  type: TIMESTAMP
-        - addForeignKeyConstraint:
-            constraintName: fk_tasks_users
-            baseTableName: tasks
-            baseColumnNames: user_id
-            referencedTableName: users
-            referencedColumnNames: id
+        - sql:
+            sql: CREATE TABLE IF NOT EXISTS tasks (
+              id BIGINT AUTO_INCREMENT PRIMARY KEY,
+              user_id BIGINT NOT NULL,
+              title VARCHAR(255) NOT NULL,
+              description VARCHAR(1000),
+              status VARCHAR(50) DEFAULT 'NEW',
+              completed_task_time TIMESTAMP,
+              FOREIGN KEY (user_id) REFERENCES users(id))
